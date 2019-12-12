@@ -22,4 +22,4 @@ for i in range(1, len(input) + 1):
 print(min_layer.count('1') * min_layer.count('2'))
 image = ''.join(image)
 for i in range(0, h):
-    print(image[i * w:i * w + w - 1])
+    print(image[i * w:i * w + w - 1].replace('1', '#').replace('0', ' '))

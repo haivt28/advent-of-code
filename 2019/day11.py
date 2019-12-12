@@ -159,7 +159,8 @@ print(min_x, min_y, max_x, max_y)
 
 out = [[0 for j in range(abs(min_x) + max_x + 1)] for i in range(abs(min_y) + max_y + 1)]
 for key in panels:
-    print(key)
     if panels[key] == 1:
         out[abs(min_y) + key[1]][abs(min_x) + key[0]] = 1
-print(out)
+
+for i in reversed(range(len(out))):
+    print(''.join(str(x) for x in out[i]).replace('1', '#').replace('0', ' '))
