@@ -33,27 +33,9 @@ def angle(a, b, c):
     return ang + 360 if ang < 0 else ang
 
 
-input = '''###..#########.#####.
-.####.#####..####.#.#
-.###.#.#.#####.##..##
-##.####.#.###########
-###...#.####.#.#.####
-#.##..###.########...
-#.#######.##.#######.
-.#..#.#..###...####.#
-#######.##.##.###..##
-#.#......#....#.#.#..
-######.###.#.#.##...#
-####.#...#.#######.#.
-.######.#####.#######
-##.##.##.#####.##.#.#
-###.#######..##.#....
-###.##.##..##.#####.#
-##.########.#.#.#####
-.##....##..###.#...#.
-#..#.####.######..###
-..#.####.############
-..##...###..#########'''
+input = open('input/day10.txt').read()
+
+# PART 1
 asteroids = []
 x = 0
 y = 0
@@ -64,7 +46,7 @@ for i in input:
     if i == '\n':
         x = 0
         y += 1
-print(asteroids)
+# print(asteroids)
 detect = [0] * len(asteroids)
 direct_list = [[] for _ in range(len(asteroids))]
 
@@ -82,6 +64,8 @@ for i in range(0, len(asteroids)):
                 (direct_list[i]).append(asteroids[j])
 
 print(max(detect))
+
+# PART 2
 max_id = detect.index(max(detect))
 print(asteroids[max_id])
 
