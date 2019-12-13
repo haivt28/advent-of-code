@@ -7,10 +7,7 @@ input = '''<x=-1, y=0, z=2>
 <x=4, y=-8, z=8>
 <x=3, y=5, z=-1>'''
 
-input = '''<x=5, y=13, z=-3>
-<x=18, y=-7, z=13>
-<x=16, y=3, z=4>
-<x=0, y=8, z=8>'''
+input = open('input/day12.txt').read()
 
 # PART 1
 pos = []
