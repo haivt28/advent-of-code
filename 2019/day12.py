@@ -85,10 +85,10 @@ for line in input.split('\n'):
     pos_z.append(z)
     vel.append(0)
 
-pos = np.array([pos_x, pos_y, pos_z])
 pos0 = np.array([pos_x, pos_y, pos_z])
+pos = np.array([pos_x, pos_y, pos_z])
+vel0 = np.array(vel)
 vel = np.array([vel, vel, vel])
-vel0 = np.array([vel, vel, vel])
 
 count = [0, 0, 0]
 for id_coor in range(len(pos)):
@@ -115,7 +115,7 @@ for id_coor in range(len(pos)):
         pos[id_coor] += vel[id_coor]
 
         count[id_coor] += 1
-        if (pos[id_coor] == pos0[id_coor]).all() and (vel[id_coor] == vel0[id_coor]).all():
+        if (pos[id_coor] == pos0[id_coor]).all() and (vel[id_coor] == vel0).all():
             break
 
 print(count)
