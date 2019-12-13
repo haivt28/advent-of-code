@@ -67,6 +67,7 @@ print(total)
 # The cycle of each coordinate is calculated separately then find the LCM of them to get the whole 3D cycle
 
 # Least Common Multiple
+# https://stackoverflow.com/a/51716959/12528667
 def lcm(a, b):
     return abs(a*b) // math.gcd(a, b)
 
