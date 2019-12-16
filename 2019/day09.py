@@ -11,6 +11,12 @@ def intcode_computer(ins, input, update_input_func, halt_func=None):
     index = buffer_size
     rbase = 0
 
+    input_list = None
+    input_id = 1
+    if isinstance(input, list):
+        input_list = input
+        input = input_list[0]
+
     while True:
         # INSTRUCTION FORMAT: ABCDE, Param1, [Param2, Param3]
         #   DE: two-digit opcode
@@ -60,7 +66,15 @@ def intcode_computer(ins, input, update_input_func, halt_func=None):
             index += 2
             new_input = update_input_func(ins[param_1])
             if new_input is not None:
+                if new_input == 'HALT':
+                    return
                 input = new_input
+            if input_list is not None:
+                if input_id >= len(input_list):
+                    return
+                else:
+                    input = input_list[input_id]
+                    input_id += 1
         elif opcode == 9:  # ADJUST RELATIVE BASE
             rbase += ins[param_1]
             # print('R-base:', rbase)
