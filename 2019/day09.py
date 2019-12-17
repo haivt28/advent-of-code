@@ -4,7 +4,7 @@ ins = list(map(int, open('input/day09.txt').read().split(',')))
 
 # Output of this day will be a complete Intcode computer!
 def intcode_computer(ins, input, update_input_func, halt_func=None):
-    buffer_size = 1000
+    buffer_size = 10000
     ins_buffer = [0] * buffer_size
     ins = ins_buffer + ins + ins_buffer
 
@@ -12,10 +12,9 @@ def intcode_computer(ins, input, update_input_func, halt_func=None):
     rbase = 0
 
     input_list = None
-    input_id = 1
+    input_id = 0
     if isinstance(input, list):
         input_list = input
-        input = input_list[0]
 
     while True:
         # INSTRUCTION FORMAT: ABCDE, Param1, [Param2, Param3]
@@ -60,6 +59,13 @@ def intcode_computer(ins, input, update_input_func, halt_func=None):
         opcode = ins[index] % 100
         # print('opcode', opcode, ins[index])
         if opcode == 3:  # INPUT
+            if input_list is not None:
+                if input_id >= len(input_list):
+                    return
+                else:
+                    input = input_list[input_id]
+                    input_id += 1
+
             ins[param_1] = input
             index += 2
         elif opcode == 4:  # OUTPUT
@@ -69,12 +75,6 @@ def intcode_computer(ins, input, update_input_func, halt_func=None):
                 if new_input == 'HALT':
                     return
                 input = new_input
-            if input_list is not None:
-                if input_id >= len(input_list):
-                    return
-                else:
-                    input = input_list[input_id]
-                    input_id += 1
         elif opcode == 9:  # ADJUST RELATIVE BASE
             rbase += ins[param_1]
             # print('R-base:', rbase)
