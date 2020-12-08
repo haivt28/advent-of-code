@@ -17,15 +17,16 @@ def execute(instructions):
 
         # Execute instructions
         traveled_ins[index] = True
-        if instructions[index][0] == 'nop':
+        ins, arg = instructions[index]
+        if ins == 'nop':
             index += 1
 
-        elif instructions[index][0] == 'acc':
-            value += int(instructions[index][1])
+        elif ins == 'acc':
+            value += int(arg)
             index += 1
 
-        elif instructions[index][0] == 'jmp':
-            index += int(instructions[index][1])
+        elif ins == 'jmp':
+            index += int(arg)
 
 
 if __name__ == '__main__':
