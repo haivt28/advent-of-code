@@ -19,7 +19,7 @@ print(count1*(count3+1))
 
 
 # PART 2
-# Solution:
+# Solution 1: Find set of pattern
 #   Split adapters into groups of consecutive ones,
 #   then calculate the possibility of each group and multiply them.
 #   For example:
@@ -42,3 +42,43 @@ for i in range(1, len(adapters)):
         count = 1
 
 print(res)
+
+
+# Solution 2: Dynamic Programming (Top Down)
+traveled_cost = {}
+
+
+def travel(adapter):
+    global traveled_cost
+    if adapter not in adapters:
+        return 0
+
+    if adapter not in traveled_cost:
+        traveled_cost[adapter] = travel(adapter - 1) + travel(adapter - 2) + travel(adapter - 3)
+
+    return traveled_cost[adapter]
+
+
+travel(max(adapters))
+print(res)
+
+
+# Solution 3: Dynamic Programming (Bottom Up)
+adapters = [100, 100] + adapters
+cost = {100: 0, 0: 1}
+for i in range(3, len(adapters)):
+    current_adapter = adapters[i]
+    current_cost = 0
+
+    if current_adapter - adapters[i-1] <= 3:
+        current_cost += cost[adapters[i-1]]
+
+    if current_adapter - adapters[i-2] <= 3:
+        current_cost += cost[adapters[i-2]]
+
+    if current_adapter - adapters[i-3] <= 3:
+        current_cost += cost[adapters[i-3]]
+
+    cost[current_adapter] = current_cost
+
+print(cost[max(adapters)])
