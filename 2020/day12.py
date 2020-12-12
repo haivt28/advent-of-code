@@ -11,10 +11,10 @@ for line in input.split('\n'):
     num = int(line.replace(line[0], ''))
 
     if direction == 'L':
-        cur_index = directions.index(facing) - int(num / 90)
+        cur_index = directions.index(facing) - num // 90
         facing = directions[cur_index % len(directions)]
     elif direction == 'R':
-        cur_index = directions.index(facing) + int(num / 90)
+        cur_index = directions.index(facing) + num // 90
         facing = directions[cur_index % len(directions)]
     elif direction == 'N' or (direction == 'F' and facing == 'N'):
         current_point[1] += num
@@ -29,6 +29,7 @@ print(abs(current_point[0]) + abs(current_point[1]))
 
 
 # PART 2
+# Solution 1: Use normal rotation
 current_point = [0, 0]
 waypoint = [10, 1]
 
@@ -61,3 +62,29 @@ for line in input.split('\n'):
         current_point[1] += num * waypoint[1]
 
 print(abs(current_point[0]) + abs(current_point[1]))
+
+# Solution 2: Use complex number
+# Ref: https://betterexplained.com/articles/a-visual-intuitive-guide-to-imaginary-numbers/
+current_point = complex(0, 0)
+waypoint = complex(10, 1)
+
+for line in input.split('\n'):
+    direction = line[0]
+    num = int(line.replace(line[0], ''))
+
+    if direction == 'L':
+        waypoint *= complex(0, 1) ** (num // 90)
+    if direction == 'R':
+        waypoint *= complex(0, -1) ** (num // 90)
+    elif direction == 'N':
+        waypoint += complex(0, num)
+    elif direction == 'S':
+        waypoint += complex(0, -num)
+    elif direction == 'W':
+        waypoint += complex(-num, 0)
+    elif direction == 'E':
+        waypoint += complex(num, 0)
+    elif direction == 'F':
+        current_point += num * waypoint
+
+print(abs(current_point.real) + abs(current_point.imag))
