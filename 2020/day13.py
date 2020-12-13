@@ -19,6 +19,7 @@ print(int(bus_list[wait.index(min(wait))]) * (min(wait) - my_time))
 # Hint get from:
 # https://www.reddit.com/r/adventofcode/comments/kc60ri/2020_day_13_can_anyone_give_me_a_hint_for_part_2/gfnnfm3/?utm_source=reddit&utm_medium=web2x&context=3
 timestamp = 0
+next_timestamp = 0
 W = int(bus_list[0])
 for i in range(1, len(bus_list)):
     if bus_list[i] != 'x':
@@ -26,13 +27,14 @@ for i in range(1, len(bus_list)):
         while True:
             valid = True
             for j in range(1, i + 1):
-                if bus_list[j] != 'x' and (timestamp + W * multiplier + j) % int(bus_list[j]) != 0:
+                next_timestamp = timestamp + W * multiplier
+                if bus_list[j] != 'x' and (next_timestamp + j) % int(bus_list[j]) != 0:
                     multiplier += 1
                     valid = False
                     break
 
             if valid:
-                timestamp += W * multiplier
+                timestamp = next_timestamp
                 W *= int(bus_list[i])
                 break
 
